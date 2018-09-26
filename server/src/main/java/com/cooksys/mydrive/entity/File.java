@@ -16,6 +16,9 @@ public class File {
 
     @NotNull
     private String name;
+    
+    @NotNull
+    private String contentType;
 
     @NotNull
     private byte[] rawData;
@@ -70,6 +73,14 @@ public class File {
         this.name = name;
     }
 
+    public String getContentType() {
+    	return contentType;
+    }
+    
+    public void setContentType(String contentType) {
+    	this.contentType = contentType;
+    }
+    
     public byte[] getRawData() {
         return rawData;
     }

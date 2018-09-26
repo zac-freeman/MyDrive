@@ -31,9 +31,10 @@ public class FileService {
         System.out.println(file);
         File fileConstruction = new File();
         try {
+            fileConstruction.setName(file.getOriginalFilename());
+        	fileConstruction.setContentType(file.getContentType());
             fileConstruction.setRawData(file.getBytes());
             fileConstruction.setRoot(true);
-            fileConstruction.setName(file.getOriginalFilename());
         } catch (Exception e) {
             System.out.println(e);
         }
