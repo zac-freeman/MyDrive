@@ -1,6 +1,8 @@
 import React from 'react'
 import connect from 'react-redux/es/connect/connect' // TODO: whats going on here
 import styled from 'styled-components'
+import { loadChildren } from '../../ducks/drive.duck'
+import PropTypes from 'prop-types'
 
 import UploadTable from '../../components/Home/UploadTable.js'
 
@@ -101,6 +103,9 @@ const FILE = 'far fa-file fa-3x'
 const ARCHIVE = 'far fa-file-archive fa-3x'
 
 class Home extends React.Component {
+  componentDidMount () {
+    this.props.loadChildren('/')
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -168,7 +173,9 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {}
+Home.propTypes = {
+  loadChildren: PropTypes.func
+}
 
 const mapStateToProps = state => ({
   selected: state.drive.selected,
@@ -178,7 +185,7 @@ const mapStateToProps = state => ({
   loadingChildrenError: state.drive.loadingChildrenError
 })
 
-const mapDispatchToProps = state => ({
+const mapDispatchToProps = dispatch => ({
   loadChildren: path => dispatch(loadChildren(path))
 })
 
