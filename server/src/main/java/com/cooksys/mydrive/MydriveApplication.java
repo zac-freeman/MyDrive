@@ -8,7 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class MydriveApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MydriveApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MydriveApplication.class, args);
+    }
 }

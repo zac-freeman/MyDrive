@@ -5,6 +5,10 @@ import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter } from 'react-router-redux'
 
 import configureStore from './configureStore'
+import App from './containers/App'
+
+import 'normalize.css'
+import './global.css'
 
 const initialState = {}
 const history = createHistory()
@@ -14,7 +18,7 @@ const MOUNT_NODE = document.getElementById('app')
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <span>Lorem Ipsum!</span>
+      <App />
     </ConnectedRouter>
   </Provider>,
   MOUNT_NODE

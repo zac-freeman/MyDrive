@@ -1,5 +1,7 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
 
+import driveReducer from './ducks/drive.duck'
+
 import { combineReducers } from 'redux'
 
 const routeInitialState = {
@@ -19,5 +21,7 @@ export function routeReducer (state = routeInitialState, action) {
 }
 
 export default function createReducer () {
-  return combineReducers({})
+  return combineReducers({
+    drive: driveReducer
+  })
 }

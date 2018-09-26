@@ -7,39 +7,43 @@ import java.util.Objects;
 
 @Entity
 public class File {
-    enum FileType {
-        AUDIO, IMAGE, ARCHIVE, TEXT, FILE
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @NotNull
-    private int parentId;
+    @OneToOne
+    private Folder parent;
 
     @NotNull
-    private String fileName;
+    private String name;
 
     @NotNull
     private byte[] rawData;
 
     @NotNull
-    private FileType type;
+    private boolean isRoot;
 
     @NotNull
-    private boolean isTrash;
+    private boolean inTrash = false;
 
     public File() {
     }
 
-    public File(int id, @NotNull int parentId, @NotNull String fileName, @NotNull byte[] rawData, @NotNull FileType type, @NotNull boolean isTrash) {
+    public File(int id, Folder parent, @NotNull String name, @NotNull byte[] rawData, @NotNull boolean isRoot, @NotNull boolean inTrash) {
         this.id = id;
-        this.parentId = parentId;
-        this.fileName = fileName;
+        this.parent = parent;
+        this.name = name;
         this.rawData = rawData;
-        this.type = type;
-        this.isTrash = isTrash;
+        this.isRoot = isRoot;
+        this.inTrash = inTrash;
+    }
+
+    public boolean isRoot() {
+        return isRoot;
+    }
+
+    public void setRoot(boolean root) {
+        isRoot = root;
     }
 
     public int getId() {
@@ -50,20 +54,20 @@ public class File {
         this.id = id;
     }
 
-    public int getParentId() {
-        return parentId;
+    public Folder getParent() {
+        return parent;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public void setParent(Folder parent) {
+        this.parent = parent;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getName() {
+        return name;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public byte[] getRawData() {
@@ -74,20 +78,12 @@ public class File {
         this.rawData = rawData;
     }
 
-    public FileType getType() {
-        return type;
+    public boolean isInTrash() {
+        return inTrash;
     }
 
-    public void setType(FileType type) {
-        this.type = type;
-    }
-
-    public boolean isTrash() {
-        return isTrash;
-    }
-
-    public void setTrash(boolean trash) {
-        isTrash = trash;
+    public void setInTrash(boolean inTrash) {
+        this.inTrash = inTrash;
     }
 
     @Override
@@ -96,16 +92,15 @@ public class File {
         if (!(o instanceof File)) return false;
         File file = (File) o;
         return id == file.id &&
-                parentId == file.parentId &&
-                isTrash == file.isTrash &&
-                Objects.equals(fileName, file.fileName) &&
-                Arrays.equals(rawData, file.rawData) &&
-                type == file.type;
+                parent == file.parent &&
+                inTrash == file.inTrash &&
+                Objects.equals(name, file.name) &&
+                Arrays.equals(rawData, file.rawData);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, parentId, fileName, type, isTrash);
+        int result = Objects.hash(id, parent, name, inTrash);
         result = 31 * result + Arrays.hashCode(rawData);
         return result;
     }
