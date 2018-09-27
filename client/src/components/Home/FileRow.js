@@ -15,30 +15,34 @@ const RowContent = styled.div`
 `
 const RowIcons = styled.div`
  display: flex;
- justify-content: flex-end;
- width: 15%;
+ justify-content: space-around;
+ width: 150px;
  align-items: center;
 `
 class FileRow extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { show: false }
+  }
+
   render () {
     return (
-      <Row>
+      <Row
+        onMouseEnter={() => this.setState({ show: true })}
+        onMouseLeave={() => this.setState({ show: false })}
+      >
         <RowContent>
           <i className='far fa-file fa-3x' />
           <p>{this.props.fileName}</p>
         </RowContent>
-        <RowIcons>
-          <a href={`http://localhost:3000/files/${this.props.fileName}`}>
-            <i
-              style={{ marginRight: '25px' }}
-              className='fas fa-file-download fa-2x'
-            />
-          </a>
-          <i
-            style={{ marginRight: '25px' }}
-            className='far fa-trash-alt fa-2x'
-          />
-        </RowIcons>
+        {this.state.show
+          ? <RowIcons>
+            <a href={`http://localhost:3000/files/${this.props.fileName}`}>
+              <i className='fas fa-file-download fa-2x' />
+            </a>
+            <i className='far fa-trash-alt fa-2x' />
+          </RowIcons>
+          : null}
       </Row>
     )
   }
