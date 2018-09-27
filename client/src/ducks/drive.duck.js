@@ -53,6 +53,7 @@ export default function (state = initialState, action) {
       }
     case LOAD_CHILDREN_DONE:
       console.log('Loaded children successfully!')
+      console.log(action.payload)
       return {
         ...state,
         children: action.payload,
@@ -132,8 +133,8 @@ const loadChildrenFailure = () => ({
 export const loadChildren = path => dispatch => {
   dispatch(loadChildrenBegin())
   return fetchChildren(path)
-    .then(({ children }) => {
-      dispatch(loadChildrenDone(children))
+    .then(({ files }) => {
+      dispatch(loadChildrenDone(files))
     })
     .catch(err => dispatch(loadChildrenFailure(err)))
 }

@@ -17,9 +17,9 @@ const RowContent = styled.div`
 class FileRow extends React.Component {
   render () {
     return (
-      <Row style={{ backgroundColor: this.props.background }}>
+      <Row>
         <RowContent>
-          <i className={this.props.fileImage} />
+          <i className='far fa-file fa-3x' />
           <p>{this.props.fileName}</p>
         </RowContent>
       </Row>
@@ -28,8 +28,6 @@ class FileRow extends React.Component {
 }
 
 FileRow.propTypes = {
-  background: PropTypes.string.isRequired,
-  fileImage: PropTypes.string.isRequired,
   fileName: PropTypes.string.isRequired
 }
 

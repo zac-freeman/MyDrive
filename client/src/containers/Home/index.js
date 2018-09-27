@@ -87,20 +87,20 @@ const Row = styled.div`
 //  padding-right: 4px;
 width: 100%;
 `
-const RowContent = styled.div`
- display: flex;
- width: 100%;
-`
-const RowIcons = styled.div`
- display: flex;
- justify-content: flex-end;
- width: 15%;
- align-items: center;
-`
+// const RowContent = styled.div`
+//  display: flex;
+//  width: 100%;
+// `
+// const RowIcons = styled.div`
+//  display: flex;
+//  justify-content: flex-end;
+//  width: 15%;
+//  align-items: center;
+// `
 
-const FOLDER = 'far fa-folder fa-3x'
-const FILE = 'far fa-file fa-3x'
-const ARCHIVE = 'far fa-file-archive fa-3x'
+// const FOLDER = 'far fa-folder fa-3x'
+// const FILE = 'far fa-file fa-3x'
+// const ARCHIVE = 'far fa-file-archive fa-3x'
 
 class Home extends React.Component {
   componentDidMount () {
@@ -112,6 +112,13 @@ class Home extends React.Component {
       uploadClicked: false
     }
   }
+
+  createFileEntries = () => {
+    let getRows = collection =>
+      collection.map(current => <FileRow fileName={current} />)
+    return getRows(this.props.children)
+  }
+
   handleUploadClick = event => {
     this.setState({
       uploadClicked: !this.state.uploadClicked
@@ -145,52 +152,8 @@ class Home extends React.Component {
               </UploadButton>
             </ButtonGroup>
           </PathContentBar>
-          <Row style={{ backgroundColor: 'lightgrey' }}>
-            <RowContent>
-              <i className={FOLDER} />
-              <p>Yellow Kitty/kittyOne</p>
-            </RowContent>
-            <RowIcons>
-              <i
-                style={{ marginRight: '25px' }}
-                className='fas fa-file-download fa-2x'
-              />
-              <i
-                style={{ marginRight: '25px' }}
-                className='far fa-trash-alt fa-2x'
-              />
-            </RowIcons>
-          </Row>
-          <FileRow
-            background='white'
-            fileImage={FOLDER}
-            fileName='Yellow Kitty/'
-          />
-          <FileRow
-            background='lightgrey'
-            fileImage={FOLDER}
-            fileName='Yellow Kitty/'
-          />
-          <FileRow
-            background='white'
-            fileImage={FILE}
-            fileName='Yellow Kitty.png'
-          />
-          <FileRow
-            background='lightgrey'
-            fileImage={FILE}
-            fileName='Yellow Kitty.jpg'
-          />
-          <FileRow
-            background='white'
-            fileImage={FILE}
-            fileName='Yellow Kitty.jpeg'
-          />
-          <FileRow
-            background='lightgrey'
-            fileImage={ARCHIVE}
-            fileName='Yellow Kitty.zip'
-          />
+          <Row style={{ backgroundColor: 'lightgrey' }} />
+          {this.props.loadingChildren ? null : this.createFileEntries()}
         </RightContent>
       </div>
     )
@@ -198,13 +161,15 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  loadChildren: PropTypes.func
+  loadChildren: PropTypes.func,
+  loadingChildren: PropTypes.bool,
+  children: PropTypes.array
 }
 
 const mapStateToProps = state => ({
   selected: state.drive.selected,
   path: state.drive.path,
-  children: [],
+  children: state.drive.children,
   loadingChildren: state.drive.path.loadingChildren,
   loadingChildrenError: state.drive.loadingChildrenError
 })
