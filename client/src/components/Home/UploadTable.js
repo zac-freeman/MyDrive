@@ -21,7 +21,12 @@ const UploadedFile = styled.td`
 class UploadTable extends React.Component {
   render () {
     return (
-      <form method='POST' encType='multipart/form-data' action='/files/example'>
+      <form
+        method='POST'
+        encType='multipart/form-data'
+        action='http://localhost:3000/files/b'
+        target='_blank'
+      >
         <UploadTableStyle>
           <table>
             <tr>
