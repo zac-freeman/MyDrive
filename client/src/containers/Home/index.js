@@ -87,20 +87,20 @@ const Row = styled.div`
 //  padding-right: 4px;
 width: 100%;
 `
-const RowContent = styled.div`
- display: flex;
- width: 100%;
-`
-const RowIcons = styled.div`
- display: flex;
- justify-content: flex-end;
- width: 15%;
- align-items: center;
-`
+// const RowContent = styled.div`
+//  display: flex;
+//  width: 100%;
+// `
+// const RowIcons = styled.div`
+//  display: flex;
+//  justify-content: flex-end;
+//  width: 15%;
+//  align-items: center;
+// `
 
-const FOLDER = 'far fa-folder fa-3x'
-const FILE = 'far fa-file fa-3x'
-const ARCHIVE = 'far fa-file-archive fa-3x'
+// const FOLDER = 'far fa-folder fa-3x'
+// const FILE = 'far fa-file fa-3x'
+// const ARCHIVE = 'far fa-file-archive fa-3x'
 
 class Home extends React.Component {
   componentDidMount () {
@@ -115,10 +115,7 @@ class Home extends React.Component {
 
   createFileEntries = () => {
     let getRows = collection =>
-      collection.map(current => (
-        <FileRow className={File} background='white' fileName={current} />
-      ))
-    console.log(this.props.children)
+      collection.map(current => <FileRow fileName={current} />)
     return getRows(this.props.children)
   }
 
@@ -164,7 +161,9 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  loadChildren: PropTypes.func
+  loadChildren: PropTypes.func,
+  loadingChildren: PropTypes.bool,
+  children: PropTypes.array
 }
 
 const mapStateToProps = state => ({
