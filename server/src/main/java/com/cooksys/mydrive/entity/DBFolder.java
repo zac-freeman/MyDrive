@@ -1,19 +1,22 @@
 package com.cooksys.mydrive.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 
 @Entity
-public class Folder {
+public class DBFolder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @OneToOne
-    private Folder parent;
+    @OneToMany
+    private List<DBFile> dbFiles = new ArrayList<DBFile>();
 
     @NotNull
     private String name;
@@ -23,12 +26,11 @@ public class Folder {
 
     private boolean inTrash;
 
-    public Folder() {
+    public DBFolder() {
     }
 
-    public Folder(int id, Folder parent, @NotNull String name, @NotNull boolean isRoot, @NotNull boolean inTrash) {
+    public DBFolder(int id, @NotNull String name, @NotNull boolean isRoot, @NotNull boolean inTrash) {
         this.id = id;
-        this.parent = parent;
         this.name = name;
         this.isRoot = isRoot;
         this.inTrash = inTrash;
@@ -40,14 +42,6 @@ public class Folder {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Folder getParent() {
-        return parent;
-    }
-
-    public void setParent(Folder parent) {
-        this.parent = parent;
     }
 
     public String getName() {
@@ -77,10 +71,9 @@ public class Folder {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Folder)) return false;
-        Folder folder = (Folder) o;
+        if (!(o instanceof DBFolder)) return false;
+        DBFolder folder = (DBFolder) o;
         return id == folder.id &&
-                parent == folder.parent &&
                 isRoot == folder.isRoot &&
                 inTrash == folder.inTrash &&
                 Objects.equals(name, folder.name);
@@ -88,6 +81,6 @@ public class Folder {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, parent, name, isRoot, inTrash);
+        return Objects.hash(id, name, isRoot, inTrash);
     }
 }

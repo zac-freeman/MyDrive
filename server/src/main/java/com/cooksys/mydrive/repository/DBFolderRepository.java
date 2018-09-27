@@ -1,12 +1,12 @@
 package com.cooksys.mydrive.repository;
 
-import com.cooksys.mydrive.entity.Folder;
+import com.cooksys.mydrive.entity.DBFolder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FolderRepository extends JpaRepository<Folder, Integer> {
-    Folder[] findByIsRoot(boolean b);
+public interface DBFolderRepository extends JpaRepository<DBFolder, Integer> {
+    DBFolder[] findByIsRoot(boolean b);
 
-    Folder findByName(String s);
+    DBFolder findByName(String s);
 }

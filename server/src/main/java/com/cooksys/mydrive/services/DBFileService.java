@@ -1,43 +1,43 @@
 package com.cooksys.mydrive.services;
 
-import com.cooksys.mydrive.entity.File;
-import com.cooksys.mydrive.repository.FileRepository;
-import com.cooksys.mydrive.repository.FolderRepository;
+import com.cooksys.mydrive.entity.DBFile;
+import com.cooksys.mydrive.repository.DBFileRepository;
+import com.cooksys.mydrive.repository.DBFolderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class FileService {
-    private FileRepository fileRepository;
-    private FolderRepository folderRepository;
+public class DBFileService {
+    private DBFileRepository dbFileRepository;
+    private DBFolderRepository folderRepository;
 
-    public FileService(FileRepository fileRepository) {
-        this.fileRepository = fileRepository;
+    public DBFileService(DBFileRepository dbFileRepository) {
+        this.dbFileRepository = dbFileRepository;
     }
 
-    public File[] get() {
-        return fileRepository.findByIsRoot(true);
+    public DBFile[] get() {
+        return dbFileRepository.findByIsRoot(true);
     }
 
-    public File get(String[] path) {
-        return fileRepository.findByName(path[path.length - 1]);
+    public DBFile get(String[] path) {
+        return dbFileRepository.findByName(path[path.length - 1]);
     }
 
-    public File add(File file) {
-        return fileRepository.save(file);
+    public DBFile add(DBFile file) {
+        return dbFileRepository.save(file);
     }
 
-    public File add(String[] path, MultipartFile file) {
+    public DBFile add(String[] path, MultipartFile file) {
         System.out.println(file);
-        File fileConstruction = new File();
+        DBFile dbFileConstruction = new DBFile();
         try {
-            fileConstruction.setName(file.getOriginalFilename());
-        	fileConstruction.setContentType(file.getContentType());
-            fileConstruction.setRawData(file.getBytes());
-            fileConstruction.setRoot(true);
+        	dbFileConstruction.setName(file.getOriginalFilename());
+        	dbFileConstruction.setContentType(file.getContentType());
+        	dbFileConstruction.setData(file.getBytes());
+        	dbFileConstruction.setRoot(true);
         } catch (Exception e) {
             System.out.println(e);
         }
-        return fileRepository.save(fileConstruction);
+        return dbFileRepository.save(dbFileConstruction);
     }
 }

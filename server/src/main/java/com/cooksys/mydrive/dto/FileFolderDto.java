@@ -1,7 +1,7 @@
 package com.cooksys.mydrive.dto;
 
-import com.cooksys.mydrive.entity.File;
-import com.cooksys.mydrive.entity.Folder;
+import com.cooksys.mydrive.entity.DBFile;
+import com.cooksys.mydrive.entity.DBFolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,30 +9,30 @@ import java.util.Objects;
 
 public class FileFolderDto {
     String path;
-    List<String> files = new ArrayList<String>();
-    List<String> folders = new ArrayList<String>();
+    List<String> dbFiles = new ArrayList<String>();
+    List<String> dbFolders = new ArrayList<String>();
 
     public FileFolderDto() {
     }
 
-    public FileFolderDto(String path, File[] files, Folder[] folders) {
+    public FileFolderDto(String path, DBFile[] dbFiles, DBFolder[] dbFolders) {
         this.path = path;
-        this.files = getNames(files);
-        this.folders = getNames(folders);
+        this.dbFiles = getNames(dbFiles);
+        this.dbFolders = getNames(dbFolders);
     }
 
-    public List<String> getNames(Folder[] folders) {
+    public List<String> getNames(DBFolder[] dbFolders) {
         List<String> folderNames = new ArrayList<String>();
-        for (Folder file : folders) {
-            folderNames.add(file.getName());
+        for (DBFolder dbFolder : dbFolders) {
+            folderNames.add(dbFolder.getName());
         }
         return folderNames;
     }
 
-    public List<String> getNames(File[] files) {
+    public List<String> getNames(DBFile[] dbFiles) {
         List<String> fileNames = new ArrayList<String>();
-        for (File file : files) {
-            fileNames.add(file.getName());
+        for (DBFile dbFile : dbFiles) {
+            fileNames.add(dbFile.getName());
         }
         return fileNames;
     }
@@ -46,19 +46,19 @@ public class FileFolderDto {
     }
 
     public List<String> getFiles() {
-        return files;
+        return dbFiles;
     }
 
-    public void setFiles(List<String> files) {
-        this.files = files;
+    public void setFiles(List<String> dbFiles) {
+        this.dbFiles = dbFiles;
     }
 
     public List<String> getFolders() {
-        return folders;
+        return dbFolders;
     }
 
-    public void setFolders(List<String> folders) {
-        this.folders = folders;
+    public void setFolders(List<String> dbFolders) {
+        this.dbFolders = dbFolders;
     }
 
     @Override
@@ -67,12 +67,12 @@ public class FileFolderDto {
         if (!(o instanceof FileFolderDto)) return false;
         FileFolderDto that = (FileFolderDto) o;
         return Objects.equals(path, that.path) &&
-                Objects.equals(files, that.files) &&
-                Objects.equals(folders, that.folders);
+                Objects.equals(dbFiles, that.dbFiles) &&
+                Objects.equals(dbFolders, that.dbFolders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(path, files, folders);
+        return Objects.hash(path, dbFiles, dbFolders);
     }
 }

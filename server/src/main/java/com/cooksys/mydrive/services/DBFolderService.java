@@ -1,31 +1,31 @@
 package com.cooksys.mydrive.services;
 
 import com.cooksys.mydrive.dto.FolderChildrenDto;
-import com.cooksys.mydrive.entity.File;
-import com.cooksys.mydrive.entity.Folder;
-import com.cooksys.mydrive.repository.FileRepository;
-import com.cooksys.mydrive.repository.FolderRepository;
+import com.cooksys.mydrive.entity.DBFile;
+import com.cooksys.mydrive.entity.DBFolder;
+import com.cooksys.mydrive.repository.DBFileRepository;
+import com.cooksys.mydrive.repository.DBFolderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class FolderService {
-    private FolderRepository folderRepository;
-    private FileRepository fileRepository;
+public class DBFolderService {
+    private DBFolderRepository dbFolderRepository;
+    private DBFileRepository dbFileRepository;
 
-    public FolderService(FolderRepository folderRepository, FileRepository fileRepository) {
-        this.folderRepository = folderRepository;
-        this.fileRepository = fileRepository;
+    public DBFolderService(DBFolderRepository dbFolderRepository, DBFileRepository dbFileRepository) {
+        this.dbFolderRepository = dbFolderRepository;
+        this.dbFileRepository = dbFileRepository;
     }
 
-    public Folder[] get() {
-        return folderRepository.findByIsRoot(true);
+    public DBFolder[] get() {
+        return dbFolderRepository.findByIsRoot(true);
     }
 
     public FolderChildrenDto get(String[] path) {
-        Folder folder = folderRepository.findByName(path[path.length - 1]);
-        List<File> files = fileRepository.findByParentId(folder.getId());
+        DBFolder folder = dbFolderRepository.findByName(path[path.length - 1]);
+        List<DBFile> files = dbFileRepository.findByParentId(folder.getId());
         return new FolderChildrenDto(folder.getName(), files);
     }
 }

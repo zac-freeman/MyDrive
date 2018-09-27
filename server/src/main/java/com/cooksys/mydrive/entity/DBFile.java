@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-public class File {
+public class DBFile {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @OneToOne
-    private Folder parent;
+    @ManyToOne
+    private DBFolder parent;
 
     @NotNull
     private String name;
@@ -21,7 +21,7 @@ public class File {
     private String contentType;
 
     @NotNull
-    private byte[] rawData;
+    private byte[] data;
 
     @NotNull
     private boolean isRoot;
@@ -29,14 +29,14 @@ public class File {
     @NotNull
     private boolean inTrash = false;
 
-    public File() {
+    public DBFile() {
     }
 
-    public File(int id, Folder parent, @NotNull String name, @NotNull byte[] rawData, @NotNull boolean isRoot, @NotNull boolean inTrash) {
+    public DBFile(int id, DBFolder parent, @NotNull String name, @NotNull byte[] data, @NotNull boolean isRoot, @NotNull boolean inTrash) {
         this.id = id;
         this.parent = parent;
         this.name = name;
-        this.rawData = rawData;
+        this.data = data;
         this.isRoot = isRoot;
         this.inTrash = inTrash;
     }
@@ -57,11 +57,11 @@ public class File {
         this.id = id;
     }
 
-    public Folder getParent() {
+    public DBFolder getParent() {
         return parent;
     }
 
-    public void setParent(Folder parent) {
+    public void setParent(DBFolder parent) {
         this.parent = parent;
     }
 
@@ -81,12 +81,12 @@ public class File {
     	this.contentType = contentType;
     }
     
-    public byte[] getRawData() {
-        return rawData;
+    public byte[] getData() {
+        return data;
     }
 
-    public void setRawData(byte[] rawData) {
-        this.rawData = rawData;
+    public void setData(byte[] rawData) {
+        this.data = rawData;
     }
 
     public boolean isInTrash() {
@@ -100,19 +100,19 @@ public class File {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof File)) return false;
-        File file = (File) o;
+        if (!(o instanceof DBFile)) return false;
+        DBFile file = (DBFile) o;
         return id == file.id &&
                 parent == file.parent &&
                 inTrash == file.inTrash &&
                 Objects.equals(name, file.name) &&
-                Arrays.equals(rawData, file.rawData);
+                Arrays.equals(data, file.data);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(id, parent, name, inTrash);
-        result = 31 * result + Arrays.hashCode(rawData);
+        result = 31 * result + Arrays.hashCode(data);
         return result;
     }
 }
