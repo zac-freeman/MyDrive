@@ -19,7 +19,7 @@ class FileRow extends React.Component {
     return (
       <Row style={{ backgroundColor: this.props.background }}>
         <RowContent>
-          <i className={this.props.fileImage} />
+          <i className='far fa-file fa-3x' />
           <p>{this.props.fileName}</p>
         </RowContent>
       </Row>
@@ -29,7 +29,7 @@ class FileRow extends React.Component {
 
 FileRow.propTypes = {
   background: PropTypes.string.isRequired,
-  fileImage: PropTypes.string.isRequired,
+  fileImage: PropTypes.string,
   fileName: PropTypes.string.isRequired
 }
 
