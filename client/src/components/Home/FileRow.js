@@ -13,7 +13,12 @@ const RowContent = styled.div`
  display: flex;
  width: 100%;
 `
-
+const RowIcons = styled.div`
+ display: flex;
+ justify-content: flex-end;
+ width: 15%;
+ align-items: center;
+`
 class FileRow extends React.Component {
   render () {
     return (
@@ -22,6 +27,18 @@ class FileRow extends React.Component {
           <i className='far fa-file fa-3x' />
           <p>{this.props.fileName}</p>
         </RowContent>
+        <RowIcons>
+          <a href={`http://localhost:3000/files/${this.props.fileName}`}>
+            <i
+              style={{ marginRight: '25px' }}
+              className='fas fa-file-download fa-2x'
+            />
+          </a>
+          <i
+            style={{ marginRight: '25px' }}
+            className='far fa-trash-alt fa-2x'
+          />
+        </RowIcons>
       </Row>
     )
   }
