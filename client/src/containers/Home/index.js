@@ -104,7 +104,7 @@ const ARCHIVE = 'far fa-file-archive fa-3x'
 
 class Home extends React.Component {
   componentDidMount () {
-    this.props.loadChildren('/')
+    this.props.loadChildren()
   }
   constructor (props) {
     super(props)
@@ -161,12 +161,36 @@ class Home extends React.Component {
               />
             </RowIcons>
           </Row>
-          <FileRow background='white' fileImage={FOLDER} fileName='Yellow Kitty/' />
-          <FileRow background='lightgrey' fileImage={FOLDER} fileName='Yellow Kitty/' />
-          <FileRow background='white' fileImage={FILE} fileName='Yellow Kitty.png' />
-          <FileRow background='lightgrey' fileImage={FILE} fileName='Yellow Kitty.jpg' />
-          <FileRow background='white' fileImage={FILE} fileName='Yellow Kitty.jpeg' />
-          <FileRow background='lightgrey' fileImage={ARCHIVE} fileName='Yellow Kitty.zip' />
+          <FileRow
+            background='white'
+            fileImage={FOLDER}
+            fileName='Yellow Kitty/'
+          />
+          <FileRow
+            background='lightgrey'
+            fileImage={FOLDER}
+            fileName='Yellow Kitty/'
+          />
+          <FileRow
+            background='white'
+            fileImage={FILE}
+            fileName='Yellow Kitty.png'
+          />
+          <FileRow
+            background='lightgrey'
+            fileImage={FILE}
+            fileName='Yellow Kitty.jpg'
+          />
+          <FileRow
+            background='white'
+            fileImage={FILE}
+            fileName='Yellow Kitty.jpeg'
+          />
+          <FileRow
+            background='lightgrey'
+            fileImage={ARCHIVE}
+            fileName='Yellow Kitty.zip'
+          />
         </RightContent>
       </div>
     )

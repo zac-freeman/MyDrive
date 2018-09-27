@@ -1,19 +1,16 @@
 import toPairs from 'lodash/toPairs'
 import request from '../utils/request'
 
-const DATABASE_ROOT = ''
+const API_ROOT = 'http://localhost:3000'
 
 export function fetchChildren (path) {
   return fetchFromDatabase({
-    endpoint: 'folders/',
-    params: {
-      path
-    }
+    endpoint: 'folders/'
   })
 }
 
 function fetchFromDatabase ({ endpoint, params }) {
-  let url = [DATABASE_ROOT, endpoint].join('/')
+  let url = [API_ROOT, endpoint].join('/')
 
   if (params) {
     const paramString = toPairs(params).map(param => param.join('=')).join('&')
