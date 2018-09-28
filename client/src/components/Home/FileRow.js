@@ -6,8 +6,7 @@ const Row = styled.div`
  display: flex;
  flex-direction: row;
  font-size: 22pt;
-//  padding-right: 4px;
-width: 100%;
+ width: 100%;
 `
 const RowContent = styled.div`
  display: flex;
@@ -19,25 +18,23 @@ const RowIcons = styled.div`
  width: 15%;
  align-items: center;
 `
+
+const FaIcon = styled.i`
+ margin-right: 25px; 
+`
 class FileRow extends React.Component {
   render () {
     return (
       <Row>
         <RowContent>
-          <i className='far fa-file fa-3x' />
+          <FaIcon className='far fa-file fa-3x' />
           <p>{this.props.fileName}</p>
         </RowContent>
         <RowIcons>
           <a href={`http://localhost:3000/files/${this.props.fileName}`}>
-            <i
-              style={{ marginRight: '25px' }}
-              className='fas fa-file-download fa-2x'
-            />
+            <FaIcon className='fas fa-file-download fa-2x' />
           </a>
-          <i
-            style={{ marginRight: '25px' }}
-            className='far fa-trash-alt fa-2x'
-          />
+          <FaIcon className='far fa-trash-alt fa-2x' />
         </RowIcons>
       </Row>
     )
