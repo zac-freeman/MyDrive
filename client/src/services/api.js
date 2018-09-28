@@ -2,7 +2,7 @@ import toPairs from 'lodash/toPairs'
 import request from '../utils/request'
 import 'whatwg-fetch'
 
-const API_ROOT = 'http://localhost:3000'
+import { API_ROOT } from '../utils/env'
 
 export function fetchChildren (path) {
   return fetchFromDatabase({
@@ -24,7 +24,7 @@ function fetchFromDatabase ({ endpoint, params }) {
 
 export function postContent (path, data) {
   // eslint-disable-next-line no-undef
-  return fetch(`http://localhost:3000/files/+${path}`, {
+  return fetch(`${API_ROOT}/files/${path}`, {
     method: 'POST',
     body: data
   })

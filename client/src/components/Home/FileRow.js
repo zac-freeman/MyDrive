@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import { API_ROOT } from '../../utils/env'
+
 const Row = styled.div`
  display: flex;
  flex-direction: row;
@@ -46,7 +48,7 @@ class FileRow extends React.Component {
             <p>{this.props.fileName}</p>
           </RowContent>
           <RowIcons>
-            <a href={`http://localhost:3000/files/${this.props.fileName}`}>
+            <a href={`${API_ROOT}/files/${this.props.fileName}`}>
               <i className="fas fa-file-download fa-2x" />
             </a>
             <i className="far fa-trash-alt fa-2x" />
