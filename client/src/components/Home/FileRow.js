@@ -38,12 +38,6 @@ class FileRow extends React.Component {
           <FaIcon className='far fa-file fa-3x' />
           <p>{this.props.fileName}</p>
         </RowContent>
-        <RowIcons>
-          <a href={`http://localhost:3000/files/${this.props.fileName}`}>
-            <FaIcon className='fas fa-file-download fa-2x' />
-          </a>
-          <FaIcon className='far fa-trash-alt fa-2x' />
-        </RowIcons>
         {this.state.show
           ? <RowIcons>
             <a href={`http://localhost:3000/files/${this.props.fileName}`}>
