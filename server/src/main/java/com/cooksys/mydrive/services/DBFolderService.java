@@ -28,4 +28,8 @@ public class DBFolderService {
         List<DBFile> files = dbFileRepository.findByParentId(folder.getId());
         return new FolderChildrenDto(folder.getName(), files);
     }
+
+    public DBFolder add(String folderName) {
+        return dbFolderRepository.save(new DBFolder(folderName));
+    }
 }

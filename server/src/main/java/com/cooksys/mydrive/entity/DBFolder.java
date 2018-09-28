@@ -26,13 +26,17 @@ public class DBFolder {
 
     @NotNull
     @Column(name = "is_root")
-    private boolean isRoot;
+    private boolean isRoot = true;
 
     @NotNull
     @Column(name = "in_trash")
-    private boolean inTrash;
+    private boolean inTrash = false;
 
     public DBFolder() {
+    }
+
+    public DBFolder(@NotNull String name) {
+        this.name = name;
     }
 
     public DBFolder(int id, @NotNull String name, @NotNull boolean isRoot, @NotNull boolean inTrash) {
