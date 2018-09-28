@@ -8,6 +8,24 @@ import UploadTable from '../../components/Home/UploadTable.js'
 
 import FileRow from '../../components/Home/FileRow.js'
 
+const OuterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: cornflowerblue;
+`
+
+const Container = styled.div`
+  height: 100%;
+  width: 80%;
+  border-radius: 2%;
+  max-width: 1200px;
+  align-self: center;
+  margin: 130px;
+  padding: 50px 25px 50px 25px;
+  background-color: azure;
+`
+
 const Header = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -31,7 +49,6 @@ const Sidebar = styled.div`
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 20%; /* Set the width of the sidebar */
   padding-top: 20px;
-  margin:auto;
   float: left;
 `
 
@@ -43,18 +60,21 @@ const SideLink = styled.a`
   text-decoration: none;
 `
 const RightContent = styled.div`
-  padding-top 20px;
+  padding-left: 20px;
   float: right;
   height: 100%;
   width: 70%;
+  border-left: 5px solid black;
 `
 const PathContentBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 32pt;
+  padding-right: 5px;
+  margin: 15px 0 15px 0;
+  font-size: 2rem;
   width: 100%;
-  border: 1px solid black;
+  border: 3px solid black;
 `
 const Path = styled.p`
   margin: 5px;
@@ -72,20 +92,19 @@ const UploadButton = styled.a`
 
 const LeftContent = styled.div`
   height: 100%;
+  
 `
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 25%;
-  // margin-left: 0;
 `
 
 const Row = styled.div`
- display: flex;
- flex-direction: row;
- font-size: 22pt;
-//  padding-right: 4px;
-width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 22pt;
+  width: 100%;
 `
 // const RowContent = styled.div`
 //  display: flex;
@@ -115,7 +134,9 @@ class Home extends React.Component {
 
   createFileEntries = () => {
     let getRows = collection =>
-      collection.map(current => <FileRow fileName={current} />)
+      collection.map((current, index) => (
+        <FileRow key={index} fileName={current} />
+      ))
     return getRows(this.props.children)
   }
 
@@ -126,36 +147,38 @@ class Home extends React.Component {
   }
   render () {
     return (
-      <div>
-        <Header>
-          <HomeButton href='HomeButton'>
-            my drive
-          </HomeButton>
-          <UserButton href='UserButton'>
-            account
-          </UserButton>
-        </Header>
-        <LeftContent>
-          <Sidebar>
-            <SideLink href='DriveButton'>drive</SideLink>
-            <SideLink href='TrashButton'>trash</SideLink>
-          </Sidebar>
-        </LeftContent>
-        <RightContent>
-          <PathContentBar>
-            <Path>MyDrive/</Path>
-            {this.state.uploadClicked && <UploadTable />}
-            <ButtonGroup>
-              <CreateButton>Create</CreateButton>
-              <UploadButton onClick={this.handleUploadClick}>
-                Upload
-              </UploadButton>
-            </ButtonGroup>
-          </PathContentBar>
-          <Row style={{ backgroundColor: 'lightgrey' }} />
-          {this.props.loadingChildren ? null : this.createFileEntries()}
-        </RightContent>
-      </div>
+      <OuterContainer>
+        <Container>
+          <Header>
+            <HomeButton href='HomeButton'>
+              my drive
+            </HomeButton>
+            <UserButton href='UserButton'>
+              account
+            </UserButton>
+          </Header>
+          <LeftContent>
+            <Sidebar>
+              <SideLink href='DriveButton'>drive</SideLink>
+              <SideLink href='TrashButton'>trash</SideLink>
+            </Sidebar>
+          </LeftContent>
+          <RightContent>
+            <PathContentBar>
+              <Path>MyDrive/</Path>
+              {this.state.uploadClicked && <UploadTable />}
+              <ButtonGroup>
+                <CreateButton>Create</CreateButton>
+                <UploadButton onClick={this.handleUploadClick}>
+                  Upload
+                </UploadButton>
+              </ButtonGroup>
+            </PathContentBar>
+            <Row />
+            {this.props.loadingChildren ? null : this.createFileEntries()}
+          </RightContent>
+        </Container>
+      </OuterContainer>
     )
   }
 }
