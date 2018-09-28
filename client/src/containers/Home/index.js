@@ -1,8 +1,10 @@
 import React from 'react'
 import connect from 'react-redux/es/connect/connect' // TODO: whats going on here
 import styled from 'styled-components'
-import { loadChildren, selectItem } from '../../ducks/drive.duck'
+import { loadChildren, selectItem, uploadContent } from '../../ducks/drive.duck'
 import PropTypes from 'prop-types'
+
+import 'whatwg-fetch'
 
 import UploadTable from '../../components/Home/UploadTable.js'
 
@@ -150,6 +152,17 @@ class Home extends React.Component {
       uploadClicked: !this.state.uploadClicked
     })
   }
+
+  handleUploadSubmit = event => {
+    event.preventDefault()
+    event.persist()
+    let path = 'b'
+    // eslint-disable-next-line no-undef
+    let data = new FormData()
+    data.append('file', event.target[0].files[0])
+    this.props.uploadContent(path, data)
+  }
+
   render () {
     return (
       <OuterContainer>
@@ -171,7 +184,8 @@ class Home extends React.Component {
           <RightContent>
             <PathContentBar>
               <Path>MyDrive/</Path>
-              {this.state.uploadClicked && <UploadTable />}
+              {this.state.uploadClicked &&
+                <UploadTable handleSubmit={this.handleUploadSubmit} />}
               <ButtonGroup>
                 <CreateButton>Create</CreateButton>
                 <UploadButton onClick={this.handleUploadClick}>
@@ -193,6 +207,7 @@ Home.propTypes = {
   children: PropTypes.array,
   loadChildren: PropTypes.func.isRequired,
   selectItem: PropTypes.func.isRequired,
+  uploadContent: PropTypes.func.isRequired,
   loadingChildren: PropTypes.bool
 }
 
@@ -206,7 +221,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadChildren: path => dispatch(loadChildren(path)),
-  selectItem: itemName => dispatch(selectItem(itemName))
+  selectItem: itemName => dispatch(selectItem(itemName)),
+  uploadContent: (path, data) => dispatch(uploadContent(path, data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

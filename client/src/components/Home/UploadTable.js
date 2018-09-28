@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const UploadTableStyle = styled.div`
  position: absolute;
@@ -21,12 +22,7 @@ const UploadedFile = styled.td`
 class UploadTable extends React.Component {
   render () {
     return (
-      <form
-        method='POST'
-        encType='multipart/form-data'
-        action='http://localhost:3000/files/b'
-        target='_blank'
-      >
+      <form onSubmit={this.props.handleSubmit}>
         <UploadTableStyle>
           <table>
             <tr>
@@ -39,6 +35,10 @@ class UploadTable extends React.Component {
       </form>
     )
   }
+}
+
+UploadTable.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default UploadTable

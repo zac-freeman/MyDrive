@@ -1,5 +1,6 @@
 import toPairs from 'lodash/toPairs'
 import request from '../utils/request'
+import 'whatwg-fetch'
 
 const API_ROOT = 'http://localhost:3000'
 
@@ -21,8 +22,10 @@ function fetchFromDatabase ({ endpoint, params }) {
   return request(url, options)
 }
 
-export function postContent (path, content) {
-  postToDatabase()
+export function postContent (path, data) {
+  // eslint-disable-next-line no-undef
+  return fetch(`http://localhost:3000/files/+${path}`, {
+    method: 'POST',
+    body: data
+  })
 }
-
-function postToDatabase ({ endpoint, params }) {}
