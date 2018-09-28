@@ -13,17 +13,23 @@ public class DBFolder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private int id;
 
     @OneToMany
+    @Column(name = "db_files")
     private List<DBFile> dbFiles = new ArrayList<DBFile>();
 
     @NotNull
+    @Column(name = "name")
     private String name;
 
     @NotNull
+    @Column(name = "is_root")
     private boolean isRoot;
 
+    @NotNull
+    @Column(name = "in_trash")
     private boolean inTrash;
 
     public DBFolder() {

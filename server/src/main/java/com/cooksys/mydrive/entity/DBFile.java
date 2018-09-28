@@ -9,24 +9,31 @@ import java.util.Objects;
 public class DBFile {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "parent")
     private DBFolder parent;
 
     @NotNull
+    @Column(name = "name")
     private String name;
     
     @NotNull
+    @Column(name = "content_type")
     private String contentType;
 
     @NotNull
+    @Column(name = "data")
     private byte[] data;
 
     @NotNull
+    @Column(name = "is_root")
     private boolean isRoot;
 
     @NotNull
+    @Column(name = "in_trash")
     private boolean inTrash = false;
 
     public DBFile() {
