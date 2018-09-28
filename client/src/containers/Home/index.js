@@ -1,7 +1,7 @@
 import React from 'react'
 import connect from 'react-redux/es/connect/connect' // TODO: whats going on here
 import styled from 'styled-components'
-import { loadChildren } from '../../ducks/drive.duck'
+import { loadChildren, selectItem } from '../../ducks/drive.duck'
 import PropTypes from 'prop-types'
 
 import UploadTable from '../../components/Home/UploadTable.js'
@@ -135,7 +135,12 @@ class Home extends React.Component {
   createFileEntries = () => {
     let getRows = collection =>
       collection.map((current, index) => (
-        <FileRow key={index} fileName={current} />
+        <FileRow
+          key={index}
+          fileName={current}
+          isSelected={current === this.props.selected}
+          handleClick={_ => this.props.selectItem(current)}
+        />
       ))
     return getRows(this.props.children)
   }
@@ -184,9 +189,11 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  loadChildren: PropTypes.func,
-  loadingChildren: PropTypes.bool,
-  children: PropTypes.array
+  selected: PropTypes.string,
+  children: PropTypes.array,
+  loadChildren: PropTypes.func.isRequired,
+  selectItem: PropTypes.func.isRequired,
+  loadingChildren: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
@@ -198,7 +205,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadChildren: path => dispatch(loadChildren(path))
+  loadChildren: path => dispatch(loadChildren(path)),
+  selectItem: itemName => dispatch(selectItem(itemName))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

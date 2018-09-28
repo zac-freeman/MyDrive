@@ -8,6 +8,12 @@ const Row = styled.div`
  font-size: 22pt;
  width: 100%;
 `
+
+const SelectedRow = styled(Row)`
+  border: 2px solid black;
+  border-radius: 5px;
+`
+
 const RowContent = styled.div`
  display: flex;
  width: 100%;
@@ -29,30 +35,51 @@ class FileRow extends React.Component {
   }
 
   render () {
-    return (
-      <Row
-        onMouseEnter={() => this.setState({ show: true })}
-        onMouseLeave={() => this.setState({ show: false })}
-      >
-        <RowContent>
-          <FaIcon className='far fa-file fa-3x' />
-          <p>{this.props.fileName}</p>
-        </RowContent>
-        {this.state.show
-          ? <RowIcons>
+    /* eslint-disable */
+    const row = this.props.isSelected
+      ? <SelectedRow
+          onMouseEnter={() => this.setState({ show: true })}
+          onMouseLeave={() => this.setState({ show: false })}
+        >
+          <RowContent>
+            <FaIcon className="far fa-file fa-3x" />
+            <p>{this.props.fileName}</p>
+          </RowContent>
+          <RowIcons>
             <a href={`http://localhost:3000/files/${this.props.fileName}`}>
-              <i className='fas fa-file-download fa-2x' />
+              <i className="fas fa-file-download fa-2x" />
             </a>
-            <i className='far fa-trash-alt fa-2x' />
+            <i className="far fa-trash-alt fa-2x" />
           </RowIcons>
-          : null}
-      </Row>
-    )
+        </SelectedRow>
+      : <Row
+          onMouseEnter={() => this.setState({ show: true })}
+          onMouseLeave={() => this.setState({ show: false })}
+          onClick={this.props.handleClick}
+        >
+          <RowContent>
+            <FaIcon className="far fa-file fa-3x" />
+            <p>{this.props.fileName}</p>
+          </RowContent>
+          {this.state.show || this.props.isSelected
+            ? <RowIcons>
+                <a href={`http://localhost:3000/files/${this.props.fileName}`}>
+                  <i className="fas fa-file-download fa-2x" />
+                </a>
+                <i className="far fa-trash-alt fa-2x" />
+              </RowIcons>
+            : null}
+        </Row>
+    /* eslint-enable */
+
+    return row
   }
 }
 
 FileRow.propTypes = {
-  fileName: PropTypes.string.isRequired
+  fileName: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired
 }
 
 export default FileRow
