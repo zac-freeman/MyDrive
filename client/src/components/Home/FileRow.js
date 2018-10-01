@@ -65,7 +65,7 @@ class FileRow extends React.Component {
           </RowContent>
           {this.state.show || this.props.isSelected
             ? <RowIcons>
-                <a href={`http://localhost:3000/files/${this.props.fileName}`}>
+                <a href={`${API_ROOT}/files/${this.props.fileName}`}>
                   <i className="fas fa-file-download fa-2x" />
                 </a>
                 <i className="far fa-trash-alt fa-2x" />
