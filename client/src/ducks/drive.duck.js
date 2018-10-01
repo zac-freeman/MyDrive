@@ -154,9 +154,7 @@ const uploadContentFailure = () => ({
 export const uploadContent = (path, data) => dispatch => {
   dispatch(uploadContentBegin())
   return postContent(path, data)
-    .then(() => {
-      dispatch(uploadContentDone())
-      dispatch(loadChildren(path))
-    })
-    .catch(dispatch(uploadContentFailure()))
+    .then(() => dispatch(uploadContentDone()))
+    .then(() => dispatch(loadChildren(path)))
+    .catch(err => dispatch(uploadContentFailure(err)))
 }
