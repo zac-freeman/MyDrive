@@ -9,6 +9,7 @@ import 'whatwg-fetch'
 import UploadTable from '../../components/Home/UploadTable.js'
 
 import FileRow from '../../components/Home/FileRow.js'
+import CreateButton from '../../components/CreateButton/index.js'
 
 const OuterContainer = styled.div`
   display: flex;
@@ -81,8 +82,6 @@ const PathContentBar = styled.div`
 const Path = styled.p`
   margin: 5px;
   width: 100%;
-`
-const CreateButton = styled.a`
 `
 const UploadButton = styled.a`
   margin-left: 20px;
@@ -187,7 +186,7 @@ class Home extends React.Component {
               {this.state.uploadClicked &&
                 <UploadTable handleSubmit={this.handleUploadSubmit} />}
               <ButtonGroup>
-                <CreateButton>Create</CreateButton>
+                <CreateButton />
                 <UploadButton onClick={this.handleUploadClick}>
                   Upload
                 </UploadButton>

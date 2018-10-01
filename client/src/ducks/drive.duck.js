@@ -1,4 +1,4 @@
-import { fetchChildren, postContent } from '../services/api'
+import { fetchChildren, postContent, postFolder } from '../services/api'
 
 export const SELECT_ITEM = 'cooksys/MyDrive/Drive/SELECT_ITEM'
 export const CHANGE_PATH = 'cooksys/MyDrive/Drive/CHANGE_PATH'
@@ -13,6 +13,10 @@ export const UPLOAD_CONTENT_BEGIN = 'cooksys/MyDrive/Drive/UPLOAD_CONTENT_BEGIN'
 export const UPLOAD_CONTENT_DONE = 'cooksys/MyDrive/Drive/UPLOAD_CONTENT_DONE'
 export const UPLOAD_CONTENT_FAILURE =
   'cooksys/MyDrive/Drive/UPLOAD_CONTENT_FAILURE'
+export const CREATE_FOLDER_BEGIN = 'cooksys/MyDrive/Drive/CREATE_FOLDER_BEGIN'
+export const CREATE_FOLDER_DONE = 'cooksys/MyDrive/Drive/CREATE_FOLDER_DONE'
+export const CREATE_FOLDER_FAILURE =
+  'cooksys/MyDrive/Drive/CREATE_FOLDER_FAILURE'
 
 const initialState = {
   selected: '',
@@ -101,7 +105,21 @@ export default function (state = initialState, action) {
         uploadUIOpen: false,
         uploadError: true
       }
-
+    case CREATE_FOLDER_BEGIN:
+      console.log('Creating folder')
+      return {
+        ...state
+      }
+    case CREATE_FOLDER_DONE:
+      console.log('Folder created successfully!')
+      return {
+        ...state
+      }
+    case CREATE_FOLDER_FAILURE:
+      console.log('Failed to create folder.')
+      return {
+        ...state
+      }
     default:
       return state
   }
@@ -133,7 +151,7 @@ const loadChildrenFailure = () => ({
 export const loadChildren = path => dispatch => {
   dispatch(loadChildrenBegin())
   return fetchChildren(path)
-    .then(({ files }) => {
+    .then(({ files, folders }) => {
       dispatch(loadChildrenDone(files))
     })
     .catch(err => dispatch(loadChildrenFailure(err)))
@@ -157,4 +175,25 @@ export const uploadContent = (path, data) => dispatch => {
     .then(() => dispatch(uploadContentDone()))
     .then(() => dispatch(loadChildren(path)))
     .catch(err => dispatch(uploadContentFailure(err)))
+}
+
+const createFolderBegin = () => ({
+  type: CREATE_FOLDER_BEGIN
+})
+
+const createFolderDone = () => ({
+  type: CREATE_FOLDER_DONE
+})
+
+const createFolderFailure = () => ({
+  type: CREATE_FOLDER_FAILURE
+})
+
+export const createFolder = name => dispatch => {
+  dispatch(createFolderBegin())
+  return postFolder(name)
+    .then(() => {
+      dispatch(createFolderDone())
+    })
+    .catch(err => dispatch(createFolderFailure(err)))
 }

@@ -9,6 +9,11 @@ export function fetchChildren (path) {
     endpoint: 'folders/'
   })
 }
+export function postFolder (name) {
+  return postToDatabase({
+    endpoint: `folders/${name}`
+  })
+}
 
 function fetchFromDatabase ({ endpoint, params }) {
   let url = [API_ROOT, endpoint].join('/')
@@ -28,4 +33,14 @@ export function postContent (path, data) {
     method: 'POST',
     body: data
   })
+}
+
+function postToDatabase ({ endpoint }) {
+  let url = [API_ROOT, endpoint].join('/')
+
+  const options = {
+    method: 'POST'
+  }
+
+  return request(url, options)
 }
